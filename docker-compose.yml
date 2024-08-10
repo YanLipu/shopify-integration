@@ -12,6 +12,8 @@ services:
       - db
     environment:
       DATABASE_URL: "postgresql://postgres:password@db:5432/mydatabase"
+    env_file:
+      - .env
 
   db:
     image: postgres:14
