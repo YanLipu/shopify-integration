@@ -18,4 +18,4 @@ RUN npm install -g ts-node-dev
 EXPOSE 3000
 
 # Command to run the application in development mode
-CMD ["ts-node-dev", "--respawn", "src/index.ts"]
+CMD ["ts-node-dev", "--respawn", "src/server.ts"]
