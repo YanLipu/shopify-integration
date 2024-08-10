@@ -1,6 +1,20 @@
+import { AppContext } from "../app";
 import { Action, BaseController } from ".";
+import { PrismaClient } from "@prisma/client";
+import { ProductService } from "../services/ProductService";
+import { ShopifyService } from "../services/ShopifyService";
 
 export class ProductsController extends BaseController {
+  private db: PrismaClient
+  private productService: ProductService
+  private shopifyService: ShopifyService
+
+  constructor(context: AppContext) {
+    super()
+    this.db = context.db
+    this.productService = new ProductService(this.db)
+    this.shopifyService = new ShopifyService()
+  }
   /**
    * Should search for products in the database
    * @param req 
@@ -8,7 +22,8 @@ export class ProductsController extends BaseController {
    * @returns 
    */
   list: Action = async (req, res) => {
-    return this.sendSuccess(res, ['controller ok']);
+    const products = await this.productService.listAll()
+    return this.sendSuccess(res, products);
   }
 
   /**
@@ -28,7 +43,8 @@ export class ProductsController extends BaseController {
    * @returns 
    */
   listShopify: Action = async (req, res) => {
-    return this.sendSuccess(res, []);
+    const products = await this.shopifyService.getProducts()
+    return this.sendSuccess(res, products);
   }
   
   /**
