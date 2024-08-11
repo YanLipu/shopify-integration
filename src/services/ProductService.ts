@@ -7,7 +7,7 @@ export class ProductService {
     this.db = db
   }
 
-  async listAll() {
-    return await this.db.product.findMany();
+  listAll() {
+    return this.db.product.findMany();
   }
 }
