@@ -12,6 +12,7 @@ services:
       - db
     environment:
       DATABASE_URL: "postgresql://postgres:password@db:5432/mydatabase"
+      REDIS_URL: "redis://redis:6379"
     env_file:
       - .env
     command: >
@@ -27,6 +28,9 @@ services:
       POSTGRES_DB: mydatabase
     volumes:
       - pgdata:/var/lib/postgresql/data
+  
+  redis:
+    image: redis:alpine
 
 volumes:
   pgdata:
