@@ -1,6 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { StatusCode } from "../lib/express/codes";
-
+import { NextFunction, Request, Response } from 'express';
+import { StatusCode } from '../lib/express/codes';
 
 export type Action<T = Request> = (
   req: T,

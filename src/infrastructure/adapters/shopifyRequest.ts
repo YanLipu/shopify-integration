@@ -1,4 +1,4 @@
-import { Headers } from "./types";
+import { Headers } from './types';
 
 export class ShopifyRequestBuilder {
   public baseUrl: string;
@@ -12,7 +12,7 @@ export class ShopifyRequestBuilder {
       'Content-Type': 'application/json',
       'X-Shopify-Access-Token': ''
     };
-    this.apiVersion = ''
+    this.apiVersion = '';
     this.body = {};
   }
 
@@ -37,6 +37,6 @@ export class ShopifyRequestBuilder {
   }
 
   public build(): ShopifyRequestBuilder {
-    return this
+    return this;
   }
 }

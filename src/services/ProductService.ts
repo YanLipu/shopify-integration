@@ -1,10 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
 export class ProductService {
-  private db: PrismaClient
+  private db: PrismaClient;
 
   constructor(db: PrismaClient) {
-    this.db = db
+    this.db = db;
   }
 
   listAll() {

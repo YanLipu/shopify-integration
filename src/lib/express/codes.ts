@@ -7,7 +7,7 @@ export enum StatusCode {
   notFound = 404,
   unprocessable = 422,
   unauthorized = 401,
-  unknown = 500,
+  unknown = 500
 }
 
 export const isSuccess = (code: number) => code >= 200 && code < 300;

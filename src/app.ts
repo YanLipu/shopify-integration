@@ -1,35 +1,34 @@
-import 'express-async-errors'
+import 'express-async-errors';
 import express, { Express as ExpressServer } from 'express';
-import { v1Routes } from './routes';
 import { PrismaClient } from '@prisma/client';
+import { v1Routes } from './routes';
 
 interface AppParams {
-  db: PrismaClient
+  db: PrismaClient;
 }
 
 export interface AppContext {
-  db: PrismaClient
+  db: PrismaClient;
 }
 
 export class App {
-  public expressServer: ExpressServer
-  private db: PrismaClient
+  public expressServer: ExpressServer;
+  private db: PrismaClient;
 
   constructor({ db }: AppParams) {
     this.db = db || new PrismaClient();
     this.expressServer = express();
   }
 
-  boot() {
-
+  boot(): void {
     const appContext = {
       db: this.db
-    }
+    };
 
     v1Routes(this, appContext);
   }
 
-  run(port: number | string, callback?: () => void) {
+  run(port: number | string, callback?: () => void): void {
     this.expressServer.listen(port, callback);
   }
 }
