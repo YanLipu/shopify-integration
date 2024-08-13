@@ -14,8 +14,84 @@ datasource db {
 }
 
 model Product {
-  id                Int     @id @default(autoincrement())
-  name              String
-  price             Float
-  shopifyProductId  String
+  id                Int       @id @default(autoincrement())
+  title             String
+  bodyHtml          String    @map("body_html")
+  vendor            String
+  productType       String    @map("product_type")
+  createdAt         DateTime  @map("created_at")
+  handle            String
+  updatedAt         DateTime  @map("updated_at")
+  publishedAt       DateTime  @map("published_at")
+  templateSuffix    String?   @map("template_suffix")
+  publishedScope    String    @map("published_scope")
+  tags              String
+  status            String
+  adminGraphqlApiId String    @map("admin_graphql_api_id")
+  variants          Variant[]
+  options           Option[]
+  images            Image[]   @relation("ProductImage")
+  imageId           Int?      @map("image_id")
+
+  @@map("products")
+}
+
+model Variant {
+  id                   Int      @id @default(autoincrement())
+  productId            Int      @map("product_id")
+  title                String
+  price                Float
+  position             Int
+  inventoryPolicy      String   @map("inventory_policy")
+  compareAtPrice       Float?   @map("compare_at_price")
+  option1              String?
+  option2              String?
+  option3              String?
+  createdAt            DateTime @map("created_at")
+  updatedAt            DateTime @map("updated_at")
+  taxable              Boolean
+  barcode              String?
+  fulfillmentService   String   @map("fulfillment_service")
+  grams                Int
+  inventoryManagement  String?  @map("inventory_management")
+  requiresShipping     Boolean  @map("requires_shipping")
+  sku                  String
+  weight               Float
+  weightUnit           String   @map("weight_unit")
+  inventoryItemId      Int      @map("inventory_item_id")
+  inventoryQuantity    Int      @map("inventory_quantity")
+  oldInventoryQuantity Int      @map("old_inventory_quantity")
+  adminGraphqlApiId    String   @map("admin_graphql_api_id")
+  imageId              Int?     @map("image_id")
+  product              Product  @relation(fields: [productId], references: [id])
+
+  @@map("variants")
+}
+
+model Option {
+  id        Int      @id @default(autoincrement())
+  productId Int      @map("product_id")
+  name      String
+  position  Int
+  values    String[]
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@map("options")
+}
+
+model Image {
+  id                Int      @id @default(autoincrement())
+  alt               String
+  position          Int
+  productId         Int      @map("product_id")
+  createdAt         DateTime @map("created_at")
+  updatedAt         DateTime @map("updated_at")
+  adminGraphqlApiId String   @map("admin_graphql_api_id")
+  width             Int
+  height            Int
+  src               String
+  variantIds        Int[]
+  product           Product  @relation("ProductImage", fields: [productId], references: [id])
+
+  @@map("images")
 }
